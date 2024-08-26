@@ -35,11 +35,8 @@ int batteryIsOk(float temperature, float soc, float chargeRate) {
     int value1 = IstemperatureOk(temperature);
     int value2 = IssocOk(soc);
     int value3 = IschargeRateOk(chargeRate);
-    
-    if (!value1 || !value2 || !value3) {
-        return 0;
-    }
-    return 1;
+
+    return (value1 && value2 && value3);
 }
 
 int main() {
