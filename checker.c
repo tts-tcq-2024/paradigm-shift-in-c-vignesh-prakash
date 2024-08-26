@@ -1,12 +1,8 @@
 #include <stdio.h>
 #include <assert.h>
 
-int isBatteryInRange(float value, float min, float max) {
-    return (value >= min && value <= max);
-}
-
-int IstemperatureOk(int value) {
-    if (!value) {
+int IstemperatureOk(float temperature) {
+    if(temperature < 0 || temperature > 45) {
         printf("Temperature out of range!\n");
         return 0;
     }
@@ -15,8 +11,8 @@ int IstemperatureOk(int value) {
     }
 }
 
-int IssocOk(int value) {
-    if (!value) {
+int IssocOk(float soc) {
+    if(soc < 20 || soc > 80) {
         printf("State of Charge out of range!\n");
         return 0;
     }
@@ -25,8 +21,8 @@ int IssocOk(int value) {
     }
 }
 
-int IschargeRateOk(int value) {
-    if (!value) {
+int IschargeRateOk(float chargeRate) {
+    if(chargeRate > 0.8) {
         printf("Charge Rate out of range!\n");
         return 0;
     }
@@ -36,21 +32,15 @@ int IschargeRateOk(int value) {
 }
 
 int batteryIsOk(float temperature, float soc, float chargeRate) {
-    int temperatureOk = isBatteryInRange(temperature, 0, 45);
-    int socOk = isBatteryInRange(soc, 20, 80);
-    int chargeRateOk = isBatteryInRange(chargeRate, 0, 0.8);
-
-    int value1 = IstemperatureOk(temperatureOk);
-    int value2 = IssocOk(socOk);
-    int value3 = IschargeRateOk(chargeRateOk);
+    int value1 = IstemperatureOk(temperature);
+    int value2 = IssocOk(soc);
+    int value3 = IschargeRateOk(chargeRate);
     
     if (!value1 || !value2 || !value3) {
         return 0;
     }
     return 1;
 }
-
-
 
 int main() {
   assert(batteryIsOk(25, 70, 0.7));
