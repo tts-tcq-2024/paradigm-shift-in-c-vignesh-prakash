@@ -32,7 +32,7 @@ int IschargeRateOk(float chargeRate) {
 }
 
 int batteryIsOk(float temperature, float soc, float chargeRate) {
-    return (IstemperatureOk(temperature) && IssocOk(soc) && IschargeRateOk(chargeRate));
+    return IstemperatureOk(temperature) && IssocOk(soc) && IschargeRateOk(chargeRate);
 }
 
 int main() {
