@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
 
-// Define constants for thresholds
 #define FREEZING_POINT_MIN 0
 #define FREEZING_POINT_MAX 2.25
 #define PEAK_TEMPERATURE_MIN 42.75
@@ -15,47 +14,58 @@
 #define CHARGE_RATE_PEAK_MIN 0.76
 #define CHARGE_RATE_PEAK_MAX 0.8
 
-// Function to generate warnings for temperature
-void GenerateTemperatureWarning(float temperature) {
+void WarnApproachingFreezing(float temperature) {
     if (temperature >= FREEZING_POINT_MIN && temperature <= FREEZING_POINT_MAX) {
-        printf("Warning : Approaching freezing point\n");
-    } else if (temperature >= PEAK_TEMPERATURE_MIN && temperature <= PEAK_TEMPERATURE_MAX) {
-        printf("Warning : Approaching peak temperature\n");
+        printf("Warning: Approaching freezing point\n");
     }
 }
 
-// Function to check if temperature is within range
+void WarnApproachingPeakTemperature(float temperature) {
+    if (temperature >= PEAK_TEMPERATURE_MIN && temperature <= PEAK_TEMPERATURE_MAX) {
+        printf("Warning: Approaching peak temperature\n");
+    }
+}
+
+void GenerateTemperatureWarning(float temperature) {
+    WarnApproachingFreezing(temperature);
+    WarnApproachingPeakTemperature(temperature);
+}
+
+void WarnApproachingDischarge(float soc) {
+    if (soc >= SOC_LOW_MIN && soc <= SOC_LOW_MAX) {
+        printf("Warning: Approaching discharge\n");
+    }
+}
+
+void WarnApproachingChargePeak(float soc) {
+    if (soc >= SOC_HIGH_MIN && soc <= SOC_HIGH_MAX) {
+        printf("Warning: Approaching charge-peak\n");
+    }
+}
+
+void GenerateSOCWarning(float soc) {
+    WarnApproachingDischarge(soc);
+    WarnApproachingChargePeak(soc);
+}
+
 int IsTemperatureInRange(float temperature) {
     return temperature >= FREEZING_POINT_MIN && temperature <= PEAK_TEMPERATURE_MAX;
 }
 
-// Function to check and generate warnings for state of charge (SOC)
-void GenerateSOCWarning(float soc) {
-    if (soc >= SOC_LOW_MIN && soc <= SOC_LOW_MAX) {
-        printf("Warning : Approaching discharge\n");
-    } else if (soc >= SOC_HIGH_MIN && soc <= SOC_HIGH_MAX) {
-        printf("Warning : Approaching charge-peak\n");
-    }
-}
-
-// Function to check if SOC is within range
 int IsSOCInRange(float soc) {
     return soc >= SOC_LOW_MIN && soc <= SOC_HIGH_MAX;
 }
 
-// Function to check and generate warnings for charge rate
 void GenerateChargeRateWarning(float chargeRate) {
     if (chargeRate >= CHARGE_RATE_PEAK_MIN && chargeRate <= CHARGE_RATE_PEAK_MAX) {
-        printf("Warning : Approaching peak ChargeRate\n");
+        printf("Warning: Approaching peak ChargeRate\n");
     }
 }
 
-// Function to check if charge rate is within range
 int IsChargeRateInRange(float chargeRate) {
     return chargeRate >= 0 && chargeRate <= CHARGE_RATE_PEAK_MAX;
 }
 
-// Function to check the temperature, SOC, and charge rate, and generate warnings
 int IsTemperatureOk(float temperature) {
     GenerateTemperatureWarning(temperature);
     int result = IsTemperatureInRange(temperature);
