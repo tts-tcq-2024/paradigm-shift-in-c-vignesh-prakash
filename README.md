@@ -60,7 +60,7 @@ Shorten the Semantic distance
 - Object oriented to encapsulate state with actions
 - Apect oriented to capture repeating aspects
 
-## Refactoring
+## Extensions and Refactoring
 
 - Adding functions for generating warnings required more changes.
 - The whole structure of functions and files was updated.
