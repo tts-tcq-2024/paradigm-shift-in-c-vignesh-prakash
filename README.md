@@ -59,3 +59,11 @@ Shorten the Semantic distance
 - Functional to express relation between input and output
 - Object oriented to encapsulate state with actions
 - Apect oriented to capture repeating aspects
+
+## Extensions and Refactoring
+
+- Adding functions for generating warnings required more changes.
+- The whole structure of functions and files was updated.
+- CCN was affected.
+- LOC was affected.
+- The functionality to generate warnings was divided and added into new file.This will help to add or remove generation of warnings for required parameters.
